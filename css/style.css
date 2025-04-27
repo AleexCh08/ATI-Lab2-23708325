@@ -4,6 +4,7 @@ body {
     margin: 0;
     padding: 0;
     color: #333;
+    font-size: 1rem;
 }
 
 /* Estilos específicos para index.html */
@@ -43,7 +44,7 @@ body {
 
 .index-page header nav ul li:first-child {
     font-weight: bold;
-    font-size: 1.4em;
+    font-size: 1.4rem;
     text-align: center;
 }
 
@@ -88,6 +89,7 @@ body {
     background-color: #f5f5f5;
 }
 
+/* Antes de usar grid 
 .index-page section ul {
     display: grid;
     grid-template-columns: repeat(4, minmax(150px, 1fr));
@@ -108,9 +110,38 @@ body {
     transition: transform 0.2s;
 }
 
-.index-page section ul li:hover { /* Animación CSS sobre cada opción de la lista */
+.index-page section ul li:hover { 
     background-color: #99c5dd;
     transform: scale(1.1) rotate(10deg);
+    position: relative;
+    z-index: 1;
+} */
+
+/* Despues de usar grid */
+.index-page section ul {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Columnas adaptables */
+    gap: 20px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.index-page section ul li {
+    background-color: #8ac3fd25;
+    border-radius: 8px;
+    box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.475);
+    overflow: hidden;
+    text-align: center;
+    border: 1px solid #00000052;
+    transition: all 0.3s ease; /* Transición suave para todos los cambios */
+}
+
+.index-page section ul li:hover {
+    background-color: #99c5dd; 
+    transform: scale(1.1) rotate(10deg);
+    box-shadow: 0 0 15px rgba(72, 146, 221, 0.8); 
+    outline: none;
     position: relative;
     z-index: 1;
 }
@@ -142,6 +173,7 @@ body {
     margin: 0 auto;
 }
 
+/* Antes de usar flexbox 
 .perfil-page .main-container {
     display: flex;
     gap: 6px;
@@ -165,12 +197,40 @@ body {
     border-radius: 4px;
     padding: 20px;
     box-shadow: 8px 8px 20px rgba(0, 0, 0, 0.85);
+}*/
+
+/* Despues de usar flexbox */
+.perfil-page .main-container {
+    display: flex;
+    flex-direction: row; /* Asegura disposición en fila (izquierda/derecha) */
+    gap: 6px; /* Espacio entre imagen y cuadro */
+    margin-bottom: 30px;
+    align-items: stretch; 
+}
+
+.perfil-page img {
+    flex: 0 0 auto; /* La imagen no crece ni se encoge, mantiene su tamaño */
+    width: 200px; /* Ancho fijo */
+    border-radius: 50px 4px 4px 4px;
+    height: auto; /* Altura proporcional */
+    object-fit: cover;
+    border: 1px solid #000000;
+    box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.perfil-page .content-box {
+    flex: 1; /* Ocupa todo el espacio restante */
+    min-width: 0; /* Permite que el contenido se ajuste correctamente */
+    border: 1px solid #000000;
+    border-radius: 4px;
+    padding: 20px;
+    box-shadow: 8px 8px 20px rgba(0, 0, 0, 0.85);
 }
 
 .perfil-page h2 {
     color: orange;
     margin-top: 0;
-    font-size: 24px;
+    font-size: 1.5rem;
     text-align: left;
     font-family: "Inter";
 }
@@ -214,4 +274,83 @@ body {
 .perfil-page a:visited {
     color: red;
     text-decoration: none;
+}
+
+/* Media Queries para Responsive */
+
+/* 1. Dispositivos Móviles (320px — 480px) */
+@media (max-width: 480px) {
+    .index-page header nav ul {
+        flex-direction: column;
+        gap: 10px;
+        padding: 10px;
+    }
+
+    .index-page header nav ul li:not(:last-child)::after {
+        display: none; 
+    }
+
+    .index-page section ul {
+        grid-template-columns: 1fr; 
+    }
+
+    .perfil-page .main-container {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .perfil-page img {
+        width: 100%;
+        border-radius: 4px;
+    }
+}
+
+/* 2. iPads, Tablets (481px — 768px) */
+@media (min-width: 481px) and (max-width: 768px) {
+    .index-page section ul {
+        grid-template-columns: repeat(2, 1fr); /* 2 columnas */
+    }
+
+    .perfil-page .main-container {
+        gap: 15px;
+    }
+
+    .perfil-page img {
+        width: 180px;
+    }
+}
+
+/* 3. Laptops pequeñas (769px — 1024px) */
+@media (min-width: 769px) and (max-width: 1024px) {
+    .index-page section ul {
+        grid-template-columns: repeat(3, 1fr); /* 3 columnas */
+    }
+
+    .perfil-page .content-box {
+        padding: 15px;
+    }
+}
+
+/* 4. Pantallas grandes (1025px — 1200px) */
+@media (min-width: 1025px) {
+    .index-page section ul {
+        grid-template-columns: repeat(4, 1fr); /* 4 columnas */
+    }
+
+    .perfil-page .main-container {
+        max-width: 1000px;
+    }
+}
+
+/* Cambio de imagen responsive */
+@media (max-width: 768px) {
+    #foto-no-dummy, #foto-perfil { 
+        content: url("../img/CEDULAPequena.jpg");
+    }
+}
+
+@media (min-width: 769px) {
+    #foto-no-dummy, #foto-perfil {  
+        content: url("../img/CEDULAGrande.jpeg");
+    }
 }
